@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../../components/button/Button";
+import History from "../../components/table/History";
 
 const Admin = () => {
   const [patient, setPatient] = useState({
@@ -14,10 +15,16 @@ const Admin = () => {
     phone: "",
     history: [],
   });
-  // const arrForm = [
-  //   { id: 1, name: "pasport", type: "text", value: patient.passport },
-  //   // { id: 2, name: "Ismi", type: "text", value: patient.firstName },
-  // ];
+
+  const arr = [
+    {
+      id: 1,
+      title: "Tish og'rig'i",
+      doctor: "Aliyev Kamol",
+      description: "ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh",
+      date: "2021.11.23",
+    },
+  ];
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
@@ -31,7 +38,7 @@ const Admin = () => {
       <div className="w-[1200px] mx-auto">
         <div className="grid grid-cols-3 gap-4">
           <div className="col-span-3 w-5/6 mx-auto mt-4">
-              {/* <Button name={"Bemor qo'shish"}  styles={`right`}/> */}
+            {/* <Button name={"Bemor qo'shish"}  styles={`right`}/> */}
             <form className="" action="" onSubmit={(e) => e.preventDefault()}>
               <div className="grid grid-cols-3">
                 <div className="px-2">
@@ -190,12 +197,15 @@ const Admin = () => {
                 </div>
               </div>
             </form>
+          </div>
+          <div className="col-span-3 w-full">
+            <History history={arr} />
             <Button
               // ButtonFunction={type === "order" ? SendOrder : SendContact}
-              name={"Bemor qo'shish"}
+              name={"Yangi"}
+              styles={'mx-auto'}
             />
           </div>
-          {/* <div className="">05</div> */}
         </div>
       </div>
     </div>
