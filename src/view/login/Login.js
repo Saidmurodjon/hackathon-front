@@ -1,36 +1,37 @@
-import axios from "axios";
+// import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import Button from "../../components/button/Button";
-import config from "../../config.json";
+// import config from "../../config.json";
+import {useNavigate } from "react-router-dom";
 const Login = () => {
-    const [customer, setCustomer] = useState({
-        email: "",
+    const navigate = useNavigate();
+    const [user, setUser] = useState({
+        login: "",
         password: "",
         created_at: new Date(),
       });
       const [error, setError] = useState("");
+      // eslint-disable-next-line
       const [success, setSuccess] = useState("");
       const changeHandler = (e) => {
-        setError("");
-        setSuccess("");
-        setCustomer({ ...customer, [e.target.name]: e.target.value });
+ 
+        setUser({ ...user, [e.target.name]: e.target.value });
       };
-      const Registration = async () => {
-        if (customer.email.length <= 0) {
-          setError("email kiriting");
-          return true;
-        }
-        if (customer.password < 8) {
-          setError("Parol uzunligi 8 tadan kam bo'lmasligi kerak!");
-          return true;
-        }
+      const Login = async () => {
+    
         try {
-          const res = await axios.post(
-            config.SERVER_URL + "",
-            customer
-          );
-          setSuccess(res.data.message);
+        //   const res = await axios.post(
+        //     config.SERVER_URL + "",
+        //     customer
+        //   );
+        //   setSuccess(res.data.message);
+        if (user.login==="admin") {
+            navigate('/admin')
+        }else if (user.login==="doctor"){
+            navigate('/doctor')
+
+        }
         } catch (error) {
           if (error.response.status === 400) {
             setError(error.response.data.message);
@@ -64,10 +65,10 @@ const Login = () => {
         >
           <input
             className="w-full h-[60px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 mt-[20px]"
-            type="email"
-            placeholder="Login"
-            name="email"
-            value={customer.email}
+            type="login"
+            placeholder="login"
+            name="login"
+            value={user.login}
             onChange={changeHandler}
           />
           <input
@@ -75,13 +76,13 @@ const Login = () => {
             type="password"
             placeholder="Parol*"
             name="password"
-            value={customer.password}
+            value={user.password}
             onChange={changeHandler}
           />
         </form>
       </div>
       <Button
-        ButtonFunction={Registration}
+        ButtonFunction={Login}
         name={"Kirish"}
         styles={`w-full mt-[40px] md:float-right`}
       />
