@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../../components/button/Button";
 import History from "../../components/table/History";
-
+import doctors from "./doctors.json";
 const Admin = () => {
   const [patient, setPatient] = useState({
     passport: "",
@@ -12,7 +12,7 @@ const Admin = () => {
     country: "",
     street: "",
     age: "",
-    phone: "",
+    phone: "+998",
     history: [
       {
         id: 1,
@@ -38,6 +38,7 @@ const Admin = () => {
   const [newHistory, setNewHistory] = useState({
     status: false,
     title: "",
+    doctorType: "",
     doctor: "",
     description: "",
     date: new Date(),
@@ -46,11 +47,14 @@ const Admin = () => {
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
+  const changeHandlerHistory = (e) => {
+    setNewHistory({ ...newHistory, [e.target.name]: e.target.value });
+  };
   useEffect(() => {
     console.log(patient);
     // eslint-disable-next-line
   }, [patient.passport]);
-  //   console.log(patient);
+  console.log(newHistory);
   return (
     <div>
       <div className="w-[1200px] mx-auto">
@@ -216,9 +220,86 @@ const Admin = () => {
               </div>
             </form>
           </div>
-          <div className="col-span-3 w-full">
+          <div className="col-span-3 w-full border-t">
             {newHistory.status ? (
-              <></>
+              <>
+                <div className="w-5/6 mx-auto mt-4">
+                  {/* <Button name={"Bemor qo'shish"}  styles={`right`}/> */}
+                  <form
+                    className=""
+                    action=""
+                    onSubmit={(e) => e.preventDefault()}
+                  >
+                    <div className="grid grid-cols-3">
+                      <div className="px-2">
+                        <label
+                          htmlFor={"title"}
+                          className=" cursor-pointer text-xl capitalize"
+                        >
+                          Sarlavha
+                        </label>
+                        <input
+                          className="w-full h-[50px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 my-4"
+                          id={"title"}
+                          type={"text"}
+                          placeholder={"Sarlavha*"}
+                          name={"title"}
+                          value={newHistory.title}
+                          onChange={changeHandlerHistory}
+                        />
+                      </div>
+                      <div className="px-2">
+                        <label
+                          htmlFor={"doctorType"}
+                          className=" cursor-pointer text-xl capitalize"
+                        >
+                          Shifokor turi
+                        </label>
+
+                        <select
+                          id="doctorType"
+                          name="doctorType"
+                          className="w-full h-[50px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 my-4"
+                          onChange={changeHandlerHistory}
+                        >
+                          <option selected>Kerakli bo'limni tanlang</option>
+                          {doctors.map((e) => (
+                            <option value={e.type}>{e.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="px-2">
+                        <label
+                          htmlFor={"doctorH"}
+                          className=" cursor-pointer text-xl capitalize"
+                        >
+                          Shifokor
+                        </label>
+
+                        <select
+                          id="doctorH"
+                          name="doctor"
+                          className="w-full h-[50px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 my-4"
+                          onChange={changeHandlerHistory}
+                        >
+                          <option selected>Kerakli bo'limni tanlang</option>
+                          {doctors.map((e) => (
+                            <option value={e.type}>{e.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="grid grid-cols-2 col-span-3 text-xl my-2">
+                        <div className="">
+                        <h1>  Shifokor xonasi: <span className=" font-bold">{2}</span></h1>
+                        </div>
+                        <div className="">
+                        <h1>  Bemor navbati: <span className=" font-bold">{4}</span></h1>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </>
             ) : (
               <Button
                 ButtonFunction={() =>
