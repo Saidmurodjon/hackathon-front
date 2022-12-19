@@ -13,18 +13,36 @@ const Admin = () => {
     street: "",
     age: "",
     phone: "",
-    history: [],
+    history: [
+      {
+        id: 1,
+        title: "Tish og'rig'i",
+        doctor: "Aliyev Kamol",
+        status: "Bajarildi",
+        description:
+          "ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh",
+        date: "2021.11.23",
+      },
+      {
+        id: 2,
+        title: "Tish og'rig'i",
+        doctor: "Aliyev Kamol",
+        status: "Kutilmoqda",
+
+        description:
+          "ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh",
+        date: "2021.11.23",
+      },
+    ],
+  });
+  const [newHistory, setNewHistory] = useState({
+    status: false,
+    title: "",
+    doctor: "",
+    description: "",
+    date: new Date(),
   });
 
-  const arr = [
-    {
-      id: 1,
-      title: "Tish og'rig'i",
-      doctor: "Aliyev Kamol",
-      description: "ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh",
-      date: "2021.11.23",
-    },
-  ];
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
@@ -199,12 +217,22 @@ const Admin = () => {
             </form>
           </div>
           <div className="col-span-3 w-full">
-            <History history={arr} />
-            <Button
-              // ButtonFunction={type === "order" ? SendOrder : SendContact}
-              name={"Yangi"}
-              styles={'mx-auto'}
-            />
+            {newHistory.status ? (
+              <></>
+            ) : (
+              <Button
+                ButtonFunction={() =>
+                  setNewHistory({ ...newHistory, status: true })
+                }
+                name={"Yangi varaqa"}
+                styles={"mx-auto my-2"}
+              />
+            )}
+            {patient.history.length > 0 ? (
+              <History history={patient.history} />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
