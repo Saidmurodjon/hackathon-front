@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../../components/button/Button";
-import Table from "../../components/table/Table";
+import PatientHistory from "../../components/table/PatientHistory";
+
 import data from "./patient.json";
 const Doctor = () => {
   var patient = data[0];
@@ -9,7 +9,7 @@ const Doctor = () => {
     <div>
       <div className="w-[1200px] mx-auto">
         <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-2 w-5/6 mx-auto ">
+          <div className="col-span-2 w-full mx-auto ">
             <div className="">
               <h1 className="mx-auto">Bemor ma'lumotlari</h1>
               <div className="grid grid-cols-3">
@@ -36,19 +36,15 @@ const Doctor = () => {
                 <div className="">
                   <h1 className="font-semibold text-xl">Passport:</h1>
                 </div>
-                <div className="col-span-2 font-medium text-xl">{patient.passport}</div>
+                <div className="col-span-2 font-medium text-xl">
+                  {patient.passport}
+                </div>
               </div>
             </div>
-            {/* <Button name={"Bemor qo'shish"}  styles={`right`}/> */}
-
-            <Button
-              name={"Yuborish"}
-            />
+            <PatientHistory history={data[0].history} />
           </div>
-          <div className="">05</div>
+          <div className="">Yangi bemorlar uchun</div>
         </div>
-        {/* Table uchun */}
-        <Table />
       </div>
     </div>
   );

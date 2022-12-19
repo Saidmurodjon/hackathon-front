@@ -14,25 +14,7 @@ const Admin = () => {
     age: "",
     phone: "+998",
     history: [
-      {
-        id: 1,
-        title: "Tish og'rig'i",
-        doctor: "Aliyev Kamol",
-        status: "Bajarildi",
-        description:
-          "ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh",
-        date: "2021.11.23",
-      },
-      {
-        id: 2,
-        title: "Tish og'rig'i",
-        doctor: "Aliyev Kamol",
-        status: "Kutilmoqda",
-
-        description:
-          "ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh ahjsDBJ ASDJBASD ASJSDHAJS ASSJKJDFI ASdhunc SDUHASND Sadh",
-        date: "2021.11.23",
-      },
+     
     ],
   });
   const [newHistory, setNewHistory] = useState({
