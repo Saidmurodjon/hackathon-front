@@ -11,14 +11,16 @@ function Routerd() {
     <>
       <Router>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/doctor" element={<Doctor />} />
-          <Route path="/admin" element={<Admin />} />
+        <div className="top-[20px]">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/doctor" element={<Doctor />} />
+            <Route path="/admin" element={<Admin />} />
 
-          <Route path="*" element={<Notfound />} />
-        </Routes>
+            <Route path="*" element={<Notfound />} />
+          </Routes>
+        </div>
       </Router>
     </>
   );

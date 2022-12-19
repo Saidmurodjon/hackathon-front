@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/button/Button";
 
 const Admin = () => {
@@ -17,7 +17,10 @@ const Admin = () => {
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
-  console.log(patient);
+  useEffect(()=>{
+console.log(patient);
+  },[patient.passport])
+//   console.log(patient);
   return (
     <div>
       <div className="w-[1200px] mx-auto">
@@ -66,7 +69,7 @@ const Admin = () => {
                 value={patient.region}
                 onChange={changeHandler}
               />
-                <input
+              <input
                 className="w-full h-[60px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 mt-[20px]"
                 type="text"
                 name="country"
@@ -74,7 +77,7 @@ const Admin = () => {
                 value={patient.country}
                 onChange={changeHandler}
               />
-                <input
+              <input
                 className="w-full h-[60px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 mt-[20px]"
                 type="text"
                 name="street"
@@ -82,7 +85,7 @@ const Admin = () => {
                 value={patient.street}
                 onChange={changeHandler}
               />
-                   <input
+              <input
                 className="w-full h-[60px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 mt-[20px]"
                 type="text"
                 name="age"
@@ -90,7 +93,7 @@ const Admin = () => {
                 value={patient.age}
                 onChange={changeHandler}
               />
-                     <input
+              <input
                 className="w-full h-[60px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 mt-[20px]"
                 type="text"
                 name="phone"
@@ -98,7 +101,7 @@ const Admin = () => {
                 value={patient.phone}
                 onChange={changeHandler}
               />
-                    <input
+              <input
                 className="w-full h-[60px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 mt-[20px]"
                 type="text"
                 name="tel"
