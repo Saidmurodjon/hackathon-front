@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import Button from "../../components/button/Button";
 import History from "../../components/table/History";
-import doctors from "./doctors.json";
+import Doctors from "./doctors.json";
 import config from "../../config.json";
 import axios from "axios";
 const Admin = () => {
+  // const doctor = JSON.parse(localStorage.getItem("doctor"));
   const [patient, setPatient] = useState({
     historyCheck: false,
-    id: "",
+    // id: "",
     passport: "",
     firstName: "",
     lastName: "",
@@ -22,12 +23,14 @@ const Admin = () => {
   const [newHistory, setNewHistory] = useState({
     status: false,
     title: "",
+    doctorId: "",
     doctorType: "",
     doctor: "",
     description: "",
     date: new Date(),
   });
-
+  const [doctors, setDoctors] = useState([]);
+  console.log(newHistory);
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
@@ -69,7 +72,31 @@ const Admin = () => {
 
     // eslint-disable-next-line
   }, [patient.passport]);
-  console.log(newHistory);
+  // get doctors
+  useEffect(() => {
+    async function GetDoctors() {
+      try {
+        const res = await axios.get(
+          config.SERVER_URL +
+            "/doctor/whois?doctorType=" +
+            newHistory.doctorType
+        );
+        console.log(res);
+        if (res.status === 200) {
+          setDoctors(res.data);
+        }
+      } catch (error) {
+        if (error.response.status === 404) {
+          setDoctors();
+        }
+        console.log(error);
+      }
+    }
+    GetDoctors();
+
+    console.log(newHistory);
+    // eslint-disable-next-line
+  }, [newHistory.doctorType]);
   const Send = async () => {
     try {
       if (patient.historyCheck) {
@@ -297,7 +324,7 @@ const Admin = () => {
                           onChange={changeHandlerHistory}
                         >
                           <option selected>Kerakli bo'limni tanlang</option>
-                          {doctors.map((e) => (
+                          {Doctors.map((e) => (
                             <option value={e.type}>{e.name}</option>
                           ))}
                         </select>
@@ -317,9 +344,13 @@ const Admin = () => {
                           onChange={changeHandlerHistory}
                         >
                           <option selected>Kerakli bo'limni tanlang</option>
-                          {doctors.map((e) => (
-                            <option value={e.type}>{e.name}</option>
-                          ))}
+                          {doctors
+                            ? doctors.map((e) => (
+                                <option value={e.type}>
+                                  {e.firstName + " " + e.lastName}
+                                </option>
+                              ))
+                            : false}
                         </select>
                       </div>
                       <div className="grid grid-cols-2 col-span-3 text-xl my-2">
