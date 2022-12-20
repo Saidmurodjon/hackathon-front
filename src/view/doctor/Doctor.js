@@ -97,7 +97,7 @@ const Doctor = () => {
                     rows="10"
                   ></textarea>
                 </div>
-                {/* <div className="px-2">
+                <div className="px-2">
                   <label
                     htmlFor={"firstName"}
                     className=" cursor-pointer text-xl capitalize"
@@ -147,7 +147,7 @@ const Doctor = () => {
                     // value={patient.middleName}
                     // onChange={changeHandler}
                   />
-                </div> */}
+                </div>
                 <div className=" col-span-3">
                   <Button name={"Dori qo'shish"} styles="float-right" />
                 </div>
