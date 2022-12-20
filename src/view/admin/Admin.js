@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Button from "../../components/button/Button";
 import History from "../../components/table/History";
 import doctors from "./doctors.json";
+import config from "../../config.json";
+import axios from "axios";
 const Admin = () => {
   const [patient, setPatient] = useState({
     passport: "",
@@ -13,9 +15,7 @@ const Admin = () => {
     street: "",
     age: "",
     phone: "+998",
-    history: [
-     
-    ],
+    history: [],
   });
   const [newHistory, setNewHistory] = useState({
     status: false,
@@ -33,7 +33,33 @@ const Admin = () => {
     setNewHistory({ ...newHistory, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-    console.log(patient);
+    async function GetPassport() {
+      try {
+        const res = await axios.get(
+          config.SERVER_URL + "/patient/passport?passport=" + patient.passport.toUpperCase()
+        );
+
+        if (res.status === 200) {
+          setPatient({
+            ...patient,
+            firstName: res.data.firstName,
+            lastName: res.data.lastName,
+            middleName: res.data.middleName,
+            region: res.data.region,
+            country: res.data.country,
+            street: res.data.street,
+            age: res.data.age,
+            phone: res.data.phone,
+            history: res.data.history,
+          });
+          console.log(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    GetPassport();
+    // console.log(patient);
     // eslint-disable-next-line
   }, [patient.passport]);
   console.log(newHistory);
@@ -272,10 +298,18 @@ const Admin = () => {
                       </div>
                       <div className="grid grid-cols-2 col-span-3 text-xl my-2">
                         <div className="">
-                        <h1>  Shifokor xonasi: <span className=" font-bold">{2}</span></h1>
+                          <h1>
+                            {" "}
+                            Shifokor xonasi:{" "}
+                            <span className=" font-bold">{2}</span>
+                          </h1>
                         </div>
                         <div className="">
-                        <h1>  Bemor navbati: <span className=" font-bold">{4}</span></h1>
+                          <h1>
+                            {" "}
+                            Bemor navbati:{" "}
+                            <span className=" font-bold">{4}</span>
+                          </h1>
                         </div>
                       </div>
                     </div>

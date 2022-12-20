@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "region": "toshkent",
+    "district": [{ "id": "toshkent" }]
+  },
+  {
+    "id": 2,
+    "region": "farg'ona",
+    "district": [{ "id": 1, "name": "farg'ona" },{ "id": 2, "name": "rishton" }]
+  },
+  {
+    "id": 1,
+    "region": "namangan",
+    "district": [{ "id": 1, "name": "yangiqo'rg'on" }]
+  }
+]
