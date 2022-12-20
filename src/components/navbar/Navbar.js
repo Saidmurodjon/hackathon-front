@@ -2,7 +2,11 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 const Navbar = () => {
-const navigate=useNavigate()
+  const navigate = useNavigate();
+  var login = localStorage.getItem("login");
+  window.addEventListener("login", () => {
+    window.location.reload(false);
+  });
   return (
     <div>
       {/* <Link to={`/login`}>Login</Link> */}
@@ -17,9 +21,17 @@ const navigate=useNavigate()
             />
           </Link>
           <div className="flex md:order-2">
-            <Button name={"Login"} ButtonFunction={()=>navigate("/login")} />
+            {login === "adim" ? (
+              <h1>Admin Page</h1>
+            ) : login === "Doctor" ? (
+              <h1>Doctor Page</h1>
+            ) : (
+              <Button
+                name={"Login"}
+                ButtonFunction={() => navigate("/login")}
+              />
+            )}
           </div>
-         
         </div>
       </nav>
     </div>

@@ -27,10 +27,11 @@ const Login = () => {
         //   );
         //   setSuccess(res.data.message);
         if (user.login==="admin") {
+          localStorage.setItem('login', 'admin');
             navigate('/admin')
         }else if (user.login==="doctor"){
+          localStorage.setItem('login', 'doctor');
             navigate('/doctor')
-
         }
         } catch (error) {
           if (error.response.status === 400) {
@@ -66,7 +67,7 @@ const Login = () => {
           <input
             className="w-full h-[60px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 mt-[20px]"
             type="login"
-            placeholder="login"
+            placeholder="Login"
             name="login"
             value={user.login}
             onChange={changeHandler}
@@ -81,11 +82,14 @@ const Login = () => {
           />
         </form>
       </div>
+      <div className="mx-auto flex justify-center">
       <Button
         ButtonFunction={Login}
         name={"Kirish"}
-        styles={`w-full mt-[40px] md:float-right`}
+        styles={`w-1/3 mt-[40px] mx-auto`}
       />
+      </div>
+    
     </div>
   </div>
   );

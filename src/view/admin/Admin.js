@@ -341,12 +341,22 @@ const Admin = () => {
                           id="doctorH"
                           name="doctor"
                           className="w-full h-[50px] p-2.5 outline-none rounded-md dark:text-[#5B5B5B] border-2 my-4"
-                          onChange={changeHandlerHistory}
+                          // onChange={changeHandlerHistory}
+                          onChange={(evt) =>
+                            setNewHistory({
+                              ...newHistory,
+                              doctorId: JSON.parse(evt.target.value)._id,
+                              doctor:
+                                JSON.parse(evt.target.value).firstName +
+                                " " +
+                                JSON.parse(evt.target.value).lastName,
+                            })
+                          }
                         >
                           <option selected>Kerakli bo'limni tanlang</option>
                           {doctors
                             ? doctors.map((e) => (
-                                <option value={e.type}>
+                                <option value={JSON.stringify(e)}>
                                   {e.firstName + " " + e.lastName}
                                 </option>
                               ))
@@ -375,7 +385,7 @@ const Admin = () => {
                 <Button
                   ButtonFunction={Send}
                   name={"Bemor qo'shish"}
-                  styles={`float-right`}
+                  styles={`float-right my-2`}
                 />
               </>
             ) : (
@@ -384,7 +394,7 @@ const Admin = () => {
                   setNewHistory({ ...newHistory, status: true })
                 }
                 name={"Yangi varaqa"}
-                styles={"mx-auto my-2"}
+                styles={"mx-auto my-2 float-right"}
               />
             )}
             {patient.history.length > 0 ? (

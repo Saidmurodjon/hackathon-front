@@ -31,7 +31,7 @@ const History = ({ history }) => {
               <td className="px-6">{elem.id}</td>
               <td className="px-6 break-words">{elem.title}</td>
               <td className="px-6">{elem.doctor}</td>
-              <td className="px-6">{elem.status}</td>
+              <td className="px-6">{elem.check?<h1 className="text-green-700">Tugallangan</h1>:<h1 className="text-red-700">Tugallanmagan</h1>}</td>
               <td className="px-6">{elem.date}</td>
             </tr>
           ))}
