@@ -6,6 +6,8 @@ import config from "../../config.json";
 import axios from "axios";
 const Admin = () => {
   const [patient, setPatient] = useState({
+    historyCheck: false,
+    id: "",
     passport: "",
     firstName: "",
     lastName: "",
@@ -29,19 +31,24 @@ const Admin = () => {
   const changeHandler = (e) => {
     setPatient({ ...patient, [e.target.name]: e.target.value });
   };
-  const changeHandlerHistory = (e) => {
-    setNewHistory({ ...newHistory, [e.target.name]: e.target.value });
+  const changeHandlerHistory = async (e) => {
+    await setNewHistory({ ...newHistory, [e.target.name]: e.target.value });
+    setPatient({ ...patient, history: newHistory });
   };
   useEffect(() => {
     async function GetPassport() {
       try {
         const res = await axios.get(
-          config.SERVER_URL + "/patient/passport?passport=" + patient.passport.toUpperCase()
+          config.SERVER_URL +
+            "/patient/passport?passport=" +
+            patient.passport.toUpperCase()
         );
 
         if (res.status === 200) {
           setPatient({
             ...patient,
+            historyCheck: true,
+            id: res.data.id,
             firstName: res.data.firstName,
             lastName: res.data.lastName,
             middleName: res.data.middleName,
@@ -59,10 +66,30 @@ const Admin = () => {
       }
     }
     GetPassport();
-    // console.log(patient);
+
     // eslint-disable-next-line
   }, [patient.passport]);
   console.log(newHistory);
+  const Send = async () => {
+    try {
+      if (patient.historyCheck) {
+        const res = await axios.put(config.SERVER_URL + "/patient", patient);
+        console.log(res);
+        if (res.status === 200) {
+          alert("Bemor varaqasi yangilandi");
+        }
+      } else {
+        const res = await axios.post(config.SERVER_URL + "/patient", patient);
+        console.log(res);
+        if (res.status === 201) {
+          await alert("Bemor varaqasi ochildi");
+          window.location.reload(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <div className="w-[1200px] mx-auto">
@@ -232,7 +259,6 @@ const Admin = () => {
             {newHistory.status ? (
               <>
                 <div className="w-5/6 mx-auto mt-4">
-                  {/* <Button name={"Bemor qo'shish"}  styles={`right`}/> */}
                   <form
                     className=""
                     action=""
@@ -315,6 +341,11 @@ const Admin = () => {
                     </div>
                   </form>
                 </div>
+                <Button
+                  ButtonFunction={Send}
+                  name={"Bemor qo'shish"}
+                  styles={`float-right`}
+                />
               </>
             ) : (
               <Button
